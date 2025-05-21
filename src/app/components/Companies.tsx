@@ -2,7 +2,7 @@ export default function Companies() {
   return (
     <section className="text-center mt-32">
         <p className="text-gray-600">Trusted by those companies:</p>
-        <div className="flex gap-8 *:h-6 mt-6 ">
+        <div className="flex gap-8 *:h-6 mt-6">
           <img
             src="https://images.ctfassets.net/k0lk9kiuza3o/Y595RQBDR1fW5blQZfd9l/b9f3e2557c598b1ea51bb4e55f507833/lyft-customer-logo.svg"
             alt="lyft"
