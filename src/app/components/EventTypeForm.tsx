@@ -1,8 +1,10 @@
 "use client";
 import TimeSelect from "@/app/components/TimeSelect";
-import { BookingTimes, WeekdayName } from "@/libs/types";
+import { BookingTimes, EventType, WeekdayName } from "@/libs/types";
+import axios from "axios";
 import clsx from "clsx";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 const WeekdaysNames: WeekdayName[] = [
   "monday",
@@ -17,12 +19,13 @@ const WeekdaysNames: WeekdayName[] = [
 const capitalize = (str: string): string =>
   str.charAt(0).toUpperCase() + str.slice(1);
 
-export default function EventTypeForm() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [lenght, setLenght] = useState(30);
+export default function EventTypeForm({ doc }: { doc?: EventType }) {
+  const router = useRouter();
+  const [title, setTitle] = useState(doc?.title || '');
+  const [description, setDescription] = useState(doc?.description || "");
+  const [lenght, setLenght] = useState(doc?.length || 30);
   const [bookingTimes, setBookingTimes] = useState<BookingTimes>(
-    {} as BookingTimes
+    doc?.bookingTimes || {} as BookingTimes
   );
 
   function handleBookingTimeChange(
@@ -51,9 +54,26 @@ export default function EventTypeForm() {
     });
   }
 
-  function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(ev: FormEvent) {
     ev.preventDefault();
-    alert('OK')
+    try {
+      const id = doc?._id
+      const request = id ? axios.put : axios.post;
+      const data = {
+        title,
+        description,
+        lenght,
+        bookingTimes,
+      }
+    
+      const response = await request("/api/event-types", {...data, id});
+      if (response.data) {
+        router.push("/dashboard/event-types");
+        router.refresh();
+      }
+    } catch (err) {
+      console.error("Failed to create event", err);
+    }
   }
 
   return (
@@ -64,6 +84,7 @@ export default function EventTypeForm() {
           <label>
             <span>title</span>
             <input
+              required
               type="text"
               placeholder="title"
               value={title}
@@ -73,6 +94,7 @@ export default function EventTypeForm() {
           <label>
             <span>description</span>
             <textarea
+              required
               placeholder="description"
               value={description}
               onChange={(ev) => setDescription(ev.target.value)}
@@ -94,7 +116,7 @@ export default function EventTypeForm() {
             {WeekdaysNames.map((weekday, index) => {
               const from = bookingTimes?.[weekday]?.from;
               const to = bookingTimes?.[weekday]?.to;
-              const active = bookingTimes?.[weekday]?.active
+              const active = bookingTimes?.[weekday]?.active;
               return (
                 <div key={index} className="grid grid-cols-2 items-center">
                   <label className="flex items-center gap-1 !mb-0 !p-0">

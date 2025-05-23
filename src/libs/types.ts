@@ -16,6 +16,7 @@ export type FromTo = {
 export type BookingTimes = Record<WeekdayName, FromTo>;
 
 export type EventType = {
+  _id?: string;
   email: string;
   title: string;
   description: string;

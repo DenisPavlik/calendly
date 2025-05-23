@@ -4,6 +4,7 @@ import mongoose, { model, Schema } from "mongoose";
 const FromToSchema = new Schema<FromTo>({
   from: String,
   to: String,
+  active: Boolean,
 });
 
 const BookingSchema = new Schema<Record<WeekdayName, FromTo>>({
