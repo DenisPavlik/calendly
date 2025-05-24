@@ -3,8 +3,10 @@ import TimeSelect from "@/app/components/TimeSelect";
 import { BookingTimes, EventType, WeekdayName } from "@/libs/types";
 import axios from "axios";
 import clsx from "clsx";
+import { Save } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import EventTypeDelete from "./EventTypeDelete";
 
 const WeekdaysNames: WeekdayName[] = [
   "monday",
@@ -21,11 +23,11 @@ const capitalize = (str: string): string =>
 
 export default function EventTypeForm({ doc }: { doc?: EventType }) {
   const router = useRouter();
-  const [title, setTitle] = useState(doc?.title || '');
+  const [title, setTitle] = useState(doc?.title || "");
   const [description, setDescription] = useState(doc?.description || "");
   const [lenght, setLenght] = useState(doc?.length || 30);
   const [bookingTimes, setBookingTimes] = useState<BookingTimes>(
-    doc?.bookingTimes || {} as BookingTimes
+    doc?.bookingTimes || ({} as BookingTimes)
   );
 
   function handleBookingTimeChange(
@@ -57,16 +59,16 @@ export default function EventTypeForm({ doc }: { doc?: EventType }) {
   async function handleSubmit(ev: FormEvent) {
     ev.preventDefault();
     try {
-      const id = doc?._id
+      const id = doc?._id;
       const request = id ? axios.put : axios.post;
       const data = {
         title,
         description,
         lenght,
         bookingTimes,
-      }
-    
-      const response = await request("/api/event-types", {...data, id});
+      };
+
+      const response = await request("/api/event-types", { ...data, id });
       if (response.data) {
         router.push("/dashboard/event-types");
         router.refresh();
@@ -162,11 +164,12 @@ export default function EventTypeForm({ doc }: { doc?: EventType }) {
           </div>
         </div>
       </div>
-      <div className="flex justify-center">
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-8 py-2 rounded-full"
-        >
+      <div className="flex justify-center gap-2">
+        {doc && (
+          <EventTypeDelete id={doc._id} />
+        )}
+        <button type="submit" className="btn bg-blue-600 text-white !px-6">
+          <Save />
           Save
         </button>
       </div>

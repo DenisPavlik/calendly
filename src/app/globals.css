@@ -22,11 +22,16 @@
   width: calc(100% + 16px);
 }
 
-form input[type="text"], form input[type="number"], form select, form textarea {
+form input[type="text"],
+form input[type="number"],
+form select,
+form textarea {
   @apply border rounded-md;
 }
 
-form input[type="text"], form input[type="number"], form textarea {
+form input[type="text"],
+form input[type="number"],
+form textarea {
   @apply w-full block p-2;
 }
 
@@ -34,6 +39,11 @@ form label {
   @apply mb-2 block p-1;
 }
 
-form label span, span.label {
- @apply text-xs font-bold uppercase text-gray-600;
+form label span,
+span.label {
+  @apply text-xs font-bold uppercase text-gray-600;
+}
+
+.btn {
+  @apply inline-flex items-center gap-1 rounded-full px-4 py-2;
 }

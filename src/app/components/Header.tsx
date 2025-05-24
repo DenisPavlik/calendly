@@ -26,7 +26,7 @@ export default async function Header() {
         <nav className="flex items-center gap-4">
           <Link
             href={"/dashboard"}
-            className="bg-blue-600 text-white sm:py-2 sm:px-4 p-1 rounded-full"
+            className="btn bg-blue-600 text-white"
           >
             Dashboard
           </Link>
@@ -38,7 +38,7 @@ export default async function Header() {
           <Link href={"/api/auth"}>Sing in</Link>
           <Link
             href={"/api/auth"}
-            className="bg-blue-600 text-white sm:py-2 sm:px-4 p-1 rounded-full"
+            className="btn bg-blue-600 text-white"
           >
             Get started
           </Link>
