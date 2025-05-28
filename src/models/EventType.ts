@@ -1,5 +1,6 @@
 import { EventType, FromTo, WeekdayName } from "@/libs/types";
 import mongoose, { model, Schema } from "mongoose";
+import { ST } from "next/dist/shared/lib/utils";
 
 const FromToSchema = new Schema<FromTo>({
   from: String,
@@ -20,6 +21,7 @@ const BookingSchema = new Schema<Record<WeekdayName, FromTo>>({
 const EventTypeSchema = new Schema(
   {
     email: String,
+    uri: String,
     title: String,
     description: String,
     length: Number,

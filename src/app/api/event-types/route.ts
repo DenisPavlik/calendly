@@ -3,6 +3,10 @@ import { session } from "@/libs/session";
 import { EventTypeModel } from "@/models/EventType";
 import { NextRequest } from "next/server";
 
+function uriFromTitle(title: string) : string {
+  return title.toLowerCase().replaceAll(/[^a-z0-9]/g, "-")
+}
+
 export async function POST(req: NextRequest) {
   try {
     await connectToDB();
@@ -12,6 +16,7 @@ export async function POST(req: NextRequest) {
     }
 
     const data = await req.json();
+    data.uri = uriFromTitle(data.title)
 
     const eventTypeDoc = await EventTypeModel.create({ email, ...data });
     return Response.json(eventTypeDoc);
@@ -30,6 +35,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const data = await req.json();
+    data.uri = uriFromTitle(data.title)
     const id = data.id;
 
     if (id) {

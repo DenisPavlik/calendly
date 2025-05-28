@@ -11,6 +11,7 @@ import Link from "next/link";
 export default async function EventTypesPage() {
   await connectToDB();
   const email = await session().get("email");
+
   const eventTypes = await EventTypeModel.find({ email });
   return (
     <div>
@@ -26,6 +27,9 @@ export default async function EventTypesPage() {
             )}
           >
             {et.title}
+            <span className="text-gray-500 ml-4 text-sm">
+              {process.env.NEXT_PUBLIC_URL as string}/username/{et.uri}
+            </span>
           </Link>
         ))}
       </div>

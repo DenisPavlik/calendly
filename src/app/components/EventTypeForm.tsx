@@ -7,6 +7,7 @@ import { Save } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import EventTypeDelete from "./EventTypeDelete";
+import MeetingUri from "./MeetingURI";
 
 const WeekdaysNames: WeekdayName[] = [
   "monday",
@@ -80,7 +81,7 @@ export default function EventTypeForm({ doc }: { doc?: EventType }) {
 
   return (
     <form className="p-2 bg-gray-200 rounded-lg mt-4" onSubmit={handleSubmit}>
-      create new event type:
+      {doc && <MeetingUri uri={`${process.env.NEXT_PUBLIC_URL as string}/username/${doc.uri}`} />}
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label>
