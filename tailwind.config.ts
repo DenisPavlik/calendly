@@ -8,6 +8,7 @@ const config: Config = {
   ],
   safelist: [
     'bg-blue-500',
+    'bg-green-300',
     'text-white'
   ],
   theme: {

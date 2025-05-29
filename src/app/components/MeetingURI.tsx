@@ -17,8 +17,8 @@ export default function MeetingUri({ uri }: { uri: string }) {
         type="button"
         onClick={handleCopy}
         className={clsx(
-          "px-2 text-sm bg-white rounded-lg border min-w-24 duration-500",
-          !copied ? "" : "bg-green-300"
+          "px-2 text-sm rounded-lg border min-w-24 duration-500",
+          !copied ? "bg-white" : "bg-green-300"
         )}
       >
         {!copied ? (

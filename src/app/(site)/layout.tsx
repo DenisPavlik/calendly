@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans } from "next/font/google";
 import "./../globals.css";
 import Header from "../components/Header";
+import { Toaster } from "react-hot-toast";
 
 
 const noto = Noto_Sans({ subsets: ["latin"], weight: ["300", "400", "700"] });
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={noto.className}>
         <main className="container">
+          <Toaster />
           <Header />
           {children}
         </main>

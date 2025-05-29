@@ -1,22 +1,16 @@
-'use server'
+"use server";
 
-import DashboardNav from "@/app/components/DashboardNav";
+import ProfileForm from "@/app/components/ProfileForm";
+import { getUsernameByEmail } from "@/libs/db-utils";
 import { session } from "@/libs/session";
 
 export default async function DashboardPage() {
-  const email = await session().get('email');
+  const email = await session().get("email");
+  const username = await getUsernameByEmail(email);
 
-  if (!email) {
-    return (
-      <div className="text-center font-semibold text-xl mt-20">
-        <h1>You are not logged in</h1>
-      </div>
-    )
-  }
   return (
     <div>
-      <DashboardNav />
-      booked events here
+      <ProfileForm un={username} />
     </div>
-  )
+  );
 }

@@ -26,3 +26,8 @@ export type EventType = {
   createdAt?: Date;
   updatedAt?: Date;
 };
+
+export type Profile = {
+  email: string;
+  username: string;
+}

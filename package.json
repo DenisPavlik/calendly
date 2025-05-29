@@ -18,7 +18,8 @@
     "next-app-session": "^1.0.7",
     "nylas": "^7.5.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hot-toast": "^2.5.2"
   },
   "devDependencies": {
     "typescript": "^5",

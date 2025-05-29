@@ -22,7 +22,13 @@ const WeekdaysNames: WeekdayName[] = [
 const capitalize = (str: string): string =>
   str.charAt(0).toUpperCase() + str.slice(1);
 
-export default function EventTypeForm({ doc }: { doc?: EventType }) {
+export default function EventTypeForm({
+  doc,
+  username = "",
+}: {
+  doc?: EventType;
+  username?: string;
+}) {
   const router = useRouter();
   const [title, setTitle] = useState(doc?.title || "");
   const [description, setDescription] = useState(doc?.description || "");
@@ -81,7 +87,13 @@ export default function EventTypeForm({ doc }: { doc?: EventType }) {
 
   return (
     <form className="p-2 bg-gray-200 rounded-lg mt-4" onSubmit={handleSubmit}>
-      {doc && <MeetingUri uri={`${process.env.NEXT_PUBLIC_URL as string}/username/${doc.uri}`} />}
+      {doc && (
+        <MeetingUri
+          uri={`${process.env.NEXT_PUBLIC_URL as string}/${username}/${
+            doc.uri
+          }`}
+        />
+      )}
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label>
@@ -166,9 +178,7 @@ export default function EventTypeForm({ doc }: { doc?: EventType }) {
         </div>
       </div>
       <div className="flex justify-center gap-2">
-        {doc && (
-          <EventTypeDelete id={doc._id} />
-        )}
+        {doc && <EventTypeDelete id={doc._id} />}
         <button type="submit" className="btn bg-blue-600 text-white !px-6">
           <Save />
           Save
