@@ -32,7 +32,7 @@ export default function EventTypeForm({
   const router = useRouter();
   const [title, setTitle] = useState(doc?.title || "");
   const [description, setDescription] = useState(doc?.description || "");
-  const [lenght, setLenght] = useState(doc?.length || 30);
+  const [length, setLength] = useState(doc?.length || 30);
   const [bookingTimes, setBookingTimes] = useState<BookingTimes>(
     doc?.bookingTimes || ({} as BookingTimes)
   );
@@ -71,7 +71,7 @@ export default function EventTypeForm({
       const data = {
         title,
         description,
-        lenght,
+        length,
         bookingTimes,
       };
 
@@ -120,8 +120,8 @@ export default function EventTypeForm({
             <input
               type="number"
               placeholder="30"
-              value={lenght}
-              onChange={(ev) => setLenght(parseInt(ev.target.value))}
+              value={length}
+              onChange={(ev) => setLength(parseInt(ev.target.value))}
             />
           </label>
         </div>
