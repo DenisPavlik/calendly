@@ -8,16 +8,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import EventTypeDelete from "./EventTypeDelete";
 import MeetingUri from "./MeetingURI";
-
-const WeekdaysNames: WeekdayName[] = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
-];
+import { WeekdaysNames } from "@/libs/shared";
 
 const capitalize = (str: string): string =>
   str.charAt(0).toUpperCase() + str.slice(1);

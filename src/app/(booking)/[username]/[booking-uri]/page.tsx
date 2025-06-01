@@ -1,3 +1,4 @@
+import TimePicker from "@/app/components/TimePicker";
 import { connectToDB } from "@/libs/connectToDB";
 import { EventTypeModel } from "@/models/EventType";
 import { ProfileModel } from "@/models/Profile";
@@ -31,10 +32,14 @@ export default async function BookingPage(props: PageProps) {
       style={{ backgroundImage: "url('/bg.png')" }}
     >
       <div className="w-full">
-        <div className="max-w-4xl mx-auto shadow-md rounded-lg flex
-        overflow-hidden">
+        <div
+          className="max-w-4xl mx-auto shadow-md rounded-lg flex
+        overflow-hidden"
+        >
           <div className="bg-sky-100/50 w-2/5 flex flex-col gap-4 p-4">
-            <h1 className="text-2xl border-b border-black/20 pb-2">{etDoc.title}</h1>
+            <h1 className="text-2xl border-b border-black/20 pb-2">
+              {etDoc.title}
+            </h1>
             <div className="flex items-center gap-2">
               <div>
                 <Clock />
@@ -48,7 +53,11 @@ export default async function BookingPage(props: PageProps) {
               <div>{etDoc.description}</div>
             </div>
           </div>
-          <div className="bg-white/80 grow p-8">right</div>
+          <div className="bg-white/80 grow p-8">
+            <TimePicker
+              bookingTimes={JSON.parse(JSON.stringify(etDoc.bookingTimes))}
+            />
+          </div>
         </div>
       </div>
     </div>

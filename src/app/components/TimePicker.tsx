@@ -1,0 +1,79 @@
+"use client";
+import { shortWeekdays } from "@/libs/shared";
+import { BookingTimes } from "@/libs/types";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { addDays, format, getDay, isLastDayOfMonth } from "date-fns";
+
+export default function TimePicker({
+  bookingTimes,
+}: {
+  bookingTimes: BookingTimes;
+}) {
+  const currentDate = new Date();
+  const [activeYear, setActiveYear] = useState(currentDate.getFullYear());
+  const [activeMonthIndex, setActiveMonthIndex] = useState(
+    currentDate.getMonth() - 1
+  );
+  const firstDayOfCurrentMonth = new Date(activeYear, activeMonthIndex, 1);
+  const firstDayOfCurrentMonthWeekdayIndex = getDay(firstDayOfCurrentMonth);
+  const emptyDaysCount =
+    firstDayOfCurrentMonthWeekdayIndex === 0
+      ? 6
+      : firstDayOfCurrentMonthWeekdayIndex - 1;
+
+  const emptyDaysArr = new Array(emptyDaysCount).fill("", 0, emptyDaysCount);
+
+  const daysNumbers = [firstDayOfCurrentMonth];
+
+  do {
+    const lastAddedDay = daysNumbers[daysNumbers.length - 1];
+    daysNumbers.push(addDays(lastAddedDay, 1));
+  } while (!isLastDayOfMonth(daysNumbers[daysNumbers.length - 1]));
+
+  return (
+    <div className="flex gap-4">
+      <div className="grow">
+        <div className="flex items-center">
+          <span className="grow">
+            {format(new Date(activeYear, activeMonthIndex, 1), "MMMM")}{" "}
+            {activeYear}
+          </span>
+          <button>
+            <ChevronLeft />
+          </button>
+          <button>
+            <ChevronRight />
+          </button>
+          {/* {emptyDaysCount}
+          {JSON.stringify(firstDayOfCurrentMonthWeekdayIndex)} */}
+        </div>
+        <div className="inline-grid grid-cols-7 gap-2 mt-2">
+          {shortWeekdays.map((weekday, index) => (
+            <div
+              key={index}
+              className="text-center uppercase text-sm text-gray-500 font-semibold"
+            >
+              {weekday}
+            </div>
+          ))}
+          {emptyDaysArr.map((empty, index) => (
+            <div key={index} />
+          ))}
+          {daysNumbers.map((n, index) => (
+            <div
+              key={index}
+              className="text-center text-sm text-gray-500 font-semibold"
+            >
+              <button className="bg-gray-300 rounded-full w-8 h-8 inline-flex
+              items-center justify-center">
+                {format(n, "d")}
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>times</div>
+    </div>
+  );
+}
