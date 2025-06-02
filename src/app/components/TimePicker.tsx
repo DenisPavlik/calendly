@@ -3,7 +3,7 @@ import { shortWeekdays } from "@/libs/shared";
 import { BookingTimes } from "@/libs/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { addDays, format, getDay, isLastDayOfMonth } from "date-fns";
+import { addDays, addMonths, format, getDay, isLastDayOfMonth, subMonths } from "date-fns";
 
 export default function TimePicker({
   bookingTimes,
@@ -11,9 +11,10 @@ export default function TimePicker({
   bookingTimes: BookingTimes;
 }) {
   const currentDate = new Date();
-  const [activeYear, setActiveYear] = useState(currentDate.getFullYear());
+  const [activeMonthDate, setActiveMonthDate] = useState(currentDate);
+  const [activeYear, setActiveYear] = useState(activeMonthDate.getFullYear());
   const [activeMonthIndex, setActiveMonthIndex] = useState(
-    currentDate.getMonth() - 1
+    activeMonthDate.getMonth()
   );
   const firstDayOfCurrentMonth = new Date(activeYear, activeMonthIndex, 1);
   const firstDayOfCurrentMonthWeekdayIndex = getDay(firstDayOfCurrentMonth);
@@ -31,18 +32,39 @@ export default function TimePicker({
     daysNumbers.push(addDays(lastAddedDay, 1));
   } while (!isLastDayOfMonth(daysNumbers[daysNumbers.length - 1]));
 
+  function prevMonth() {
+    setActiveMonthDate((prev) => {
+      const newActiveMonthDate = subMonths(prev, 1);
+      setActiveYear(newActiveMonthDate.getFullYear());
+      setActiveMonthIndex(newActiveMonthDate.getMonth());
+
+      return newActiveMonthDate;
+    });
+  }
+
+  function nextMonth() {
+    setActiveMonthDate((prev) => {
+      const newActiveMonthDate = addMonths(prev, 1);
+      setActiveYear(newActiveMonthDate.getFullYear());
+      setActiveMonthIndex(newActiveMonthDate.getMonth())
+      return newActiveMonthDate;
+    })
+  }
+
   return (
     <div className="flex gap-4">
-      <div className="grow">
+      <div className="">
         <div className="flex items-center">
           <span className="grow">
             {format(new Date(activeYear, activeMonthIndex, 1), "MMMM")}{" "}
             {activeYear}
           </span>
-          <button>
+          <button
+            onClick={prevMonth}
+          >
             <ChevronLeft />
           </button>
-          <button>
+          <button onClick={nextMonth}>
             <ChevronRight />
           </button>
           {/* {emptyDaysCount}
@@ -65,8 +87,10 @@ export default function TimePicker({
               key={index}
               className="text-center text-sm text-gray-500 font-semibold"
             >
-              <button className="bg-gray-300 rounded-full w-8 h-8 inline-flex
-              items-center justify-center">
+              <button
+                className="bg-gray-300 rounded-full w-8 h-8 inline-flex
+              items-center justify-center"
+              >
                 {format(n, "d")}
               </button>
             </div>
