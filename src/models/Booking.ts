@@ -1,0 +1,13 @@
+import { Booking } from "@/libs/types";
+import { model, models, Schema } from "mongoose";
+
+const BookingSchema = new Schema<Booking>({
+  guestName: String,
+  guestEmail: String,
+  guestNotes: String,
+  when: Date,
+  eventTypeId: String,
+});
+
+export const BookingModel =
+  models?.Booking || model<Booking>("Booking", BookingSchema);
