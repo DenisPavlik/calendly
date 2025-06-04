@@ -1,9 +1,20 @@
 "use client";
 import { shortWeekdays } from "@/libs/shared";
-import { BookingTimes } from "@/libs/types";
+import { BookingTimes, WeekdayName } from "@/libs/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { addDays, addMonths, format, getDay, isLastDayOfMonth, subMonths } from "date-fns";
+import {
+  addDays,
+  addMonths,
+  format,
+  getDay,
+  isEqual,
+  isFuture,
+  isLastDayOfMonth,
+  isToday,
+  subMonths,
+} from "date-fns";
+import clsx from "clsx";
 
 export default function TimePicker({
   bookingTimes,
@@ -16,6 +27,8 @@ export default function TimePicker({
   const [activeMonthIndex, setActiveMonthIndex] = useState(
     activeMonthDate.getMonth()
   );
+  const [selectedDay, setSelectedDay] = useState<null | Date>(null);
+
   const firstDayOfCurrentMonth = new Date(activeYear, activeMonthIndex, 1);
   const firstDayOfCurrentMonthWeekdayIndex = getDay(firstDayOfCurrentMonth);
   const emptyDaysCount =
@@ -32,6 +45,15 @@ export default function TimePicker({
     daysNumbers.push(addDays(lastAddedDay, 1));
   } while (!isLastDayOfMonth(daysNumbers[daysNumbers.length - 1]));
 
+  let selectedDayConfig = null;
+  if (selectedDay) {
+    const weekdayNameIndex = format(
+      selectedDay,
+      "EEEE"
+    ).toLocaleLowerCase() as WeekdayName;
+    selectedDayConfig = bookingTimes?.[weekdayNameIndex];
+  }
+
   function prevMonth() {
     setActiveMonthDate((prev) => {
       const newActiveMonthDate = subMonths(prev, 1);
@@ -46,9 +68,13 @@ export default function TimePicker({
     setActiveMonthDate((prev) => {
       const newActiveMonthDate = addMonths(prev, 1);
       setActiveYear(newActiveMonthDate.getFullYear());
-      setActiveMonthIndex(newActiveMonthDate.getMonth())
+      setActiveMonthIndex(newActiveMonthDate.getMonth());
       return newActiveMonthDate;
-    })
+    });
+  }
+
+  function handleDayClick(day: Date) {
+    setSelectedDay(day);
   }
 
   return (
@@ -59,9 +85,7 @@ export default function TimePicker({
             {format(new Date(activeYear, activeMonthIndex, 1), "MMMM")}{" "}
             {activeYear}
           </span>
-          <button
-            onClick={prevMonth}
-          >
+          <button onClick={prevMonth}>
             <ChevronLeft />
           </button>
           <button onClick={nextMonth}>
@@ -82,22 +106,45 @@ export default function TimePicker({
           {emptyDaysArr.map((empty, index) => (
             <div key={index} />
           ))}
-          {daysNumbers.map((n, index) => (
-            <div
-              key={index}
-              className="text-center text-sm text-gray-500 font-semibold"
-            >
-              <button
-                className="bg-gray-300 rounded-full w-8 h-8 inline-flex
-              items-center justify-center"
+          {daysNumbers.map((n, index) => {
+            const weekdayNameIndex = format(
+              n,
+              "EEEE"
+            ).toLocaleLowerCase() as WeekdayName;
+            const weekDayConfig = bookingTimes?.[weekdayNameIndex];
+            const isActiveInBookingTimes = weekDayConfig?.active;
+            const canBeBooked = isFuture(n) && isActiveInBookingTimes;
+            const isSelected = selectedDay && isEqual(n, selectedDay);
+
+            return (
+              <div
+                key={index}
+                className="text-center text-sm text-gray-400 font-semibold"
               >
-                {format(n, "d")}
-              </button>
-            </div>
-          ))}
+                <button
+                  disabled={!canBeBooked}
+                  className={clsx(
+                    "rounded-full w-8 h-8 inline-flex items-center justify-center",
+                    canBeBooked && !isSelected
+                      ? "bg-blue-200 text-blue-700"
+                      : "",
+                    isToday(n) && !isSelected
+                      ? "bg-gray-200 text-gray-500"
+                      : "",
+                    isSelected ? "bg-blue-500 text-white" : ""
+                  )}
+                  onClick={() => handleDayClick(n)}
+                >
+                  {format(n, "d")}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
-      <div>times</div>
+      <div className="max-w-3">
+        <pre>{JSON.stringify(selectedDayConfig, null, 2)}</pre>
+      </div>
     </div>
   );
 }
