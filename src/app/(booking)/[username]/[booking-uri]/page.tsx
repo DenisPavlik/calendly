@@ -28,16 +28,15 @@ export default async function BookingPage(props: PageProps) {
   }
   return (
     <div
-      className="min-h-screen bg-cover flex items-center"
+      className="h-screen bg-cover flex items-center"
       style={{ backgroundImage: "url('/bg.png')" }}
     >
-      <div className="w-full">
+      <div className="w-full text-center">
         <div
-          className="max-w-4xl mx-auto shadow-md rounded-lg flex
-        overflow-hidden"
+          className="inline-flex mx-auto shadow-md rounded-lg overflow-hidden"
         >
-          <div className="bg-sky-100/50 w-2/5 flex flex-col gap-4 p-4">
-            <h1 className="text-2xl border-b border-black/20 pb-2">
+          <div className="bg-sky-100/50 w-80 flex flex-col gap-4 p-4">
+            <h1 className="text-2xl text-left border-b border-black/20 pb-2 font-semibold">
               {etDoc.title}
             </h1>
             <div className="flex items-center gap-2">
@@ -46,16 +45,17 @@ export default async function BookingPage(props: PageProps) {
               </div>
               <div>{etDoc.length}min</div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 text-left">
               <div>
                 <Info />
               </div>
               <div>{etDoc.description}</div>
             </div>
           </div>
-          <div className="bg-white/80 grow p-8">
+          <div className="bg-white/80 grow">
             <TimePicker
               bookingTimes={JSON.parse(JSON.stringify(etDoc.bookingTimes))}
+              length={etDoc.length}
             />
           </div>
         </div>

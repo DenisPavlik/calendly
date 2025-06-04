@@ -5,9 +5,11 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import {
   addDays,
+  addMinutes,
   addMonths,
   format,
   getDay,
+  isBefore,
   isEqual,
   isFuture,
   isLastDayOfMonth,
@@ -18,8 +20,10 @@ import clsx from "clsx";
 
 export default function TimePicker({
   bookingTimes,
+  length,
 }: {
   bookingTimes: BookingTimes;
+  length: number;
 }) {
   const currentDate = new Date();
   const [activeMonthDate, setActiveMonthDate] = useState(currentDate);
@@ -45,13 +49,37 @@ export default function TimePicker({
     daysNumbers.push(addDays(lastAddedDay, 1));
   } while (!isLastDayOfMonth(daysNumbers[daysNumbers.length - 1]));
 
-  let selectedDayConfig = null;
+  const bookingHours = []; // array of our avaiable booking times
+  let selectedDayConfig = null; // our selected day (from, to, active, _id)
   if (selectedDay) {
     const weekdayNameIndex = format(
       selectedDay,
       "EEEE"
-    ).toLocaleLowerCase() as WeekdayName;
+    ).toLowerCase() as WeekdayName; // ("tusday")
+
     selectedDayConfig = bookingTimes?.[weekdayNameIndex];
+    //our weekdayNameIndex day("tusday") => (from, to, active, _id);
+
+    if (selectedDayConfig) {
+      const [hoursFrom, minutesFrom] = selectedDayConfig.from.split(":"); // to get (hh:mm)
+      const [hoursTo, minutesTo] = selectedDayConfig.to.split(":"); // to get (hh:mm)
+
+      const selectedDayFrom = new Date(selectedDay);
+      selectedDayFrom.setHours(parseInt(hoursFrom));
+      selectedDayFrom.setMinutes(parseInt(minutesFrom));
+
+      const selectedDayTo = new Date(selectedDay);
+      selectedDayTo.setHours(parseInt(hoursTo));
+      selectedDayTo.setMinutes(parseInt(minutesTo));
+
+      let a = selectedDayFrom;
+
+      do {
+        bookingHours.push(a);
+
+        a = addMinutes(a, 30);
+      } while (isBefore(addMinutes(a, length), selectedDayTo));
+    }
   }
 
   function prevMonth() {
@@ -78,19 +106,22 @@ export default function TimePicker({
   }
 
   return (
-    <div className="flex gap-4">
-      <div className="">
+    <div className="flex justify-center">
+      <div className="p-8">
         <div className="flex items-center">
           <span className="grow">
             {format(new Date(activeYear, activeMonthIndex, 1), "MMMM")}{" "}
             {activeYear}
           </span>
-          <button onClick={prevMonth}>
+
+          <div className="flex items-center gap-1">
+            <button onClick={prevMonth}>
             <ChevronLeft />
           </button>
           <button onClick={nextMonth}>
             <ChevronRight />
           </button>
+          </div>
           {/* {emptyDaysCount}
           {JSON.stringify(firstDayOfCurrentMonthWeekdayIndex)} */}
         </div>
@@ -142,9 +173,26 @@ export default function TimePicker({
           })}
         </div>
       </div>
-      <div className="max-w-3">
-        <pre>{JSON.stringify(selectedDayConfig, null, 2)}</pre>
-      </div>
+      {selectedDay && (
+        <div className="py-8 w-48">
+            <span className="pr-4">
+              {format(selectedDay, "EEEE, MMMM d")}
+            </span>
+            <div className="grid gap-1 mt-2 max-h-60 overflow-auto pr-2">
+              {bookingHours.map((bookingTime, index) => (
+                <div key={index}>
+                  <button
+                    className="px-8 border-2 rounded-lg border-blue-600
+                  text-blue-600 font-semibold hover:bg-blue-500 hover:text-white
+                  hover:cursor-pointer duration-300"
+                  >
+                    {format(bookingTime, "HH:mm")}
+                  </button>
+                </div>
+              ))}
+            </div>
+        </div>
+      )}
     </div>
   );
 }
