@@ -2,22 +2,27 @@
 import { shortWeekdays } from "@/libs/shared";
 import { BookingTimes, WeekdayName } from "@/libs/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   addDays,
   addMinutes,
   addMonths,
+  endOfDay,
   format,
   getDay,
+  isAfter,
   isBefore,
   isEqual,
   isFuture,
   isLastDayOfMonth,
   isToday,
+  startOfDay,
   subMonths,
 } from "date-fns";
 import clsx from "clsx";
 import Link from "next/link";
+import axios from "axios";
+import { TimeSlot } from "nylas";
 
 export default function TimePicker({
   bookingTimes,
@@ -37,6 +42,45 @@ export default function TimePicker({
     activeMonthDate.getMonth()
   );
   const [selectedDay, setSelectedDay] = useState<null | Date>(null);
+  const [busySlots, setBusySlots] = useState<TimeSlot[]>([]);
+  const [busySlotsLoaded, setBusySlotsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (selectedDay) {
+      setBusySlots([]);
+      setBusySlotsLoaded(false);
+      const params = new URLSearchParams();
+      params.set("username", username);
+      params.set("from", startOfDay(selectedDay).toISOString());
+      params.set("to", endOfDay(selectedDay).toISOString());
+      axios.get("/api/busy?" + params.toString()).then((response) => {
+        setBusySlots(response.data);
+        setBusySlotsLoaded(true);
+      });
+    }
+  }, [selectedDay]);
+
+  function checkBusySlots(time: Date) {
+    const bookingFrom = time;
+    const bookingTo = addMinutes(new Date(time), length);
+    for (let busySlot of busySlots) {
+      const busyFrom = new Date(parseInt(busySlot.startTime) * 1000);
+      const busyTo = new Date(parseInt(busySlot.endTime) * 1000);
+      if (isAfter(bookingTo, busyFrom) && isBefore(bookingTo, busyTo)) {
+        return true;
+      }
+      if (isAfter(bookingFrom, busyFrom) && isBefore(bookingFrom, busyTo)) {
+        return true;
+      }
+      if (isEqual(bookingFrom, busyFrom)) {
+        return true;
+      }
+      if (isEqual(bookingFrom, busyTo)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   const firstDayOfCurrentMonth = new Date(activeYear, activeMonthIndex, 1);
   const firstDayOfCurrentMonthWeekdayIndex = getDay(firstDayOfCurrentMonth);
@@ -80,7 +124,9 @@ export default function TimePicker({
       let a = selectedDayFrom;
 
       do {
-        bookingHours.push(a);
+        if (!checkBusySlots(a)) {
+          bookingHours.push(a);
+        }
 
         a = addMinutes(a, 30);
       } while (isBefore(addMinutes(a, length), selectedDayTo));
@@ -127,8 +173,6 @@ export default function TimePicker({
               <ChevronRight />
             </button>
           </div>
-          {/* {emptyDaysCount}
-          {JSON.stringify(firstDayOfCurrentMonthWeekdayIndex)} */}
         </div>
         <div className="inline-grid grid-cols-7 gap-2 mt-2">
           {shortWeekdays.map((weekday, index) => (
@@ -178,7 +222,7 @@ export default function TimePicker({
           })}
         </div>
       </div>
-      {selectedDay && (
+      {selectedDay && busySlotsLoaded && (
         <div className="py-8 w-48">
           <span className="pr-4">{format(selectedDay, "EEEE, MMMM d")}</span>
           <div className="grid gap-1 mt-2 max-h-60 overflow-auto pr-2">

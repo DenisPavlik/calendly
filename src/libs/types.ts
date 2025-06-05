@@ -30,6 +30,7 @@ export type EventType = {
 export type Profile = {
   email: string;
   username: string;
+  grantId: string;
 }
 
 export type Booking = {

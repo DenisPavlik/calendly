@@ -1,5 +1,7 @@
+import { connectToDB } from "@/libs/connectToDB";
 import { nylas, nylasConfig } from "@/libs/nylas";
 import { session } from "@/libs/session";
+import { ProfileModel } from "@/models/Profile";
 import { NextApiRequest } from "next";
 import { redirect } from "next/navigation";
 
@@ -23,7 +25,18 @@ export async function GET(req: NextApiRequest) {
   });
   const { grantId, email } = response;
 
-  await session().set("grandId", grantId);
+  await connectToDB();
+  
+  
+  const profileDoc = await ProfileModel.findOne({ email });
+  if (profileDoc) {
+    profileDoc.grantId = grantId;
+    await profileDoc.save();
+  } else {
+    await ProfileModel.create({ email, grantId });
+  }
+
+  // await session().set("grandId", grantId);
   await session().set("email", email);
 
   redirect("/");
