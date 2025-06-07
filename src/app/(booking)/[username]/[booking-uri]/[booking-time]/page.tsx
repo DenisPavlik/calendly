@@ -51,13 +51,13 @@ export default function BookingFormPage(props: PageProps) {
         {format(bookingTime, "EEEE, MMMM, dd, HH:mm")}
       </h2>
       {confirmed && (
-        <div className="text-center text-blue-600 pt-4">
+        <div className="text-center text-blue-600">
           <h1 className="text-xl font-semibold ">Congratulations! 😃</h1>
           <h2 className="text-lg font-semibold">
-            You just booked meeting with {username}
+            You've successfully booked a meeting with {username}
           </h2>
-          <p className="text-gray-400 text-sm">
-            Check google meet to view your upcoming meeting
+          <p className="text-gray-400 text-sm mt-2">
+            Check Google Meet for your upcoming meeting
           </p>
         </div>
       )}
@@ -66,6 +66,7 @@ export default function BookingFormPage(props: PageProps) {
           <label>
             <span>your name</span>
             <input
+              required
               type="text"
               placeholder="John Doe"
               value={guestName}
@@ -75,6 +76,7 @@ export default function BookingFormPage(props: PageProps) {
           <label>
             <span>your email</span>
             <input
+              required
               type="email"
               placeholder="test@example.com"
               value={guestEmail}
