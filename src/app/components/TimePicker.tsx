@@ -23,6 +23,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import axios from "axios";
 import { TimeSlot } from "nylas";
+import Preloader from "./Preloader";
 
 export default function TimePicker({
   bookingTimes,
@@ -222,11 +223,12 @@ export default function TimePicker({
           })}
         </div>
       </div>
-      {selectedDay && busySlotsLoaded && (
+      {selectedDay && (
         <div className="py-8 w-48">
           <span className="pr-4">{format(selectedDay, "EEEE, MMMM d")}</span>
           <div className="grid gap-1 mt-2 max-h-60 overflow-auto pr-2">
-            {bookingHours.map((bookingTime, index) => (
+            {!busySlotsLoaded && <Preloader />}
+            {busySlotsLoaded && bookingHours.map((bookingTime, index) => (
               <div key={index}>
                 <Link
                   href={`/${username}/${meetingUri}/${bookingTime.toISOString()}`}
