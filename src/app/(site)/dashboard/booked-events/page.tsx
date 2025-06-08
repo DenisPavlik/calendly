@@ -25,6 +25,10 @@ export default async function BookedEventsPage() {
           <div key={index} className="p-4 border-b bg-gray-100">
             <h3>{etDoc.title}</h3>
             <span>{format(booking.when, "EEEE, MMMM d, HH:mm")}</span>
+            <span>Winth: {booking.guestName} Email: {booking.guestEmail}</span>
+            {booking.guestNote && (
+              <p>Message from guest: booking.guestNote</p>
+            )}
           </div>
         );
       })}

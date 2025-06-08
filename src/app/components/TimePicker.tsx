@@ -228,18 +228,19 @@ export default function TimePicker({
           <span className="pr-4">{format(selectedDay, "EEEE, MMMM d")}</span>
           <div className="grid gap-1 mt-2 max-h-60 overflow-auto pr-2">
             {!busySlotsLoaded && <Preloader />}
-            {busySlotsLoaded && bookingHours.map((bookingTime, index) => (
-              <div key={index}>
-                <Link
-                  href={`/${username}/${meetingUri}/${bookingTime.toISOString()}`}
-                  className="px-8 border-2 rounded-lg border-blue-600
+            {busySlotsLoaded &&
+              bookingHours.map((bookingTime, index) => (
+                <div key={index}>
+                  <Link
+                    href={`/${username}/${meetingUri}/${bookingTime.toISOString()}`}
+                    className="px-8 border-2 rounded-lg border-blue-600
                   text-blue-600 font-semibold hover:bg-blue-500 hover:text-white
                   hover:cursor-pointer duration-300"
-                >
-                  {format(bookingTime, "HH:mm")}
-                </Link>
-              </div>
-            ))}
+                  >
+                    {format(bookingTime, "HH:mm")}
+                  </Link>
+                </div>
+              ))}
           </div>
         </div>
       )}

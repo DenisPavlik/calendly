@@ -4,7 +4,6 @@ import "./../globals.css";
 import Header from "../components/Header";
 import { Toaster } from "react-hot-toast";
 
-
 const noto = Noto_Sans({ subsets: ["latin"], weight: ["300", "400", "700"] });
 
 export const metadata: Metadata = {

@@ -7,5 +7,5 @@ export default function Preloader() {
       {/* <LoaderCircle className="h-10 w-10 text-blue-600 animate-spin" /> */}
       <ClockLoader color="#3B82F6" speedMultiplier={2} />
     </div>
-  )
+  );
 }
