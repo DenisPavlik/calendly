@@ -226,7 +226,7 @@ export default function TimePicker({
       {selectedDay && (
         <div className="py-8 w-48">
           <span className="pr-4">{format(selectedDay, "EEEE, MMMM d")}</span>
-          <div className="grid gap-1 mt-2 max-h-60 overflow-auto pr-2">
+          <div className="grid gap-1.5 py-2 max-h-64 overflow-auto pr-2">
             {!busySlotsLoaded && <Preloader />}
             {busySlotsLoaded &&
               bookingHours.map((bookingTime, index) => (
