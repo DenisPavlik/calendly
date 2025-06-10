@@ -3,8 +3,7 @@ import { session } from "@/libs/session";
 import { CalendarDays } from "lucide-react";
 import Link from "next/link";
 
-export default async function Header() {
-  const email = await session().get("email");
+export default async function Header({email}: {email?: string}) {
 
   return (
     <header className="flex gap-4 justify-between py-6 text-gray-600 font-light items-center">
