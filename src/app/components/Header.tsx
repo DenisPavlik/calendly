@@ -1,5 +1,4 @@
 "use server";
-import { session } from "@/libs/session";
 import { CalendarDays } from "lucide-react";
 import Link from "next/link";
 
@@ -34,13 +33,13 @@ export default async function Header({email}: {email?: string}) {
       )}
       {!email && (
         <nav className="flex sm:gap-4 gap-2 items-center sm:text-base text-sm">
-          <Link href={"/api/auth"}>Sing in</Link>
-          <Link
+          <a href={"/api/auth"}>Sing in</a>
+          <a
             href={"/api/auth"}
             className="btn bg-blue-600 text-white"
           >
             Get started
-          </Link>
+          </a>
         </nav>
       )}
     </header>
