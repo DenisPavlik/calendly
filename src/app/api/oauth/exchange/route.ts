@@ -35,7 +35,10 @@ export async function GET(req: NextRequest) {
   }
 
   // await session().set("grandId", grantId);
+  console.log("✅ EMAIL to set:", email);
   await session().set("email", email);
+  console.log("✅ Session set successfully");
 
-  redirect("/");
+
+  return Response.redirect(new URL("/", req.url), 302);
 }
