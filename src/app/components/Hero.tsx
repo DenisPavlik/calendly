@@ -27,14 +27,15 @@ export default function Hero() {
       </h1>
       <p className="text-gray-600">
         Most scheduling apps are simple but ours is even more simple. <br />
-        On top of this, it's open source and you can see the code.
+        On top of this, it&apos;s open source and you can see the code.
       </p>
       <div className="mt-4 flex gap-4 justify-center *:cursor-pointer">
-        <Link href={"/"} className="bg-black text-white py-2 px-4 rounded-full">
+        <Link href={"/dashboard"} className="bg-black text-white py-2 px-4 rounded-full">
           Get started for free
         </Link>
         <Link
-          href={"/"}
+          href={"https://www.youtube.com/watch?v=UZ4T7pLaOIM&ab_channel=Simpletivity"}
+          target="_blank"
           className="border-2 border-gray-700 py-2 px-4 rounded-full inline-flex gap-1 items-center text-gray-800"
         >
           <Play size={16} />

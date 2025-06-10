@@ -2,13 +2,11 @@ import { connectToDB } from "@/libs/connectToDB";
 import { nylas, nylasConfig } from "@/libs/nylas";
 import { session } from "@/libs/session";
 import { ProfileModel } from "@/models/Profile";
-import { NextApiRequest } from "next";
 import { redirect } from "next/navigation";
+import { NextRequest } from "next/server";
 
-export async function GET(req: NextApiRequest) {
-  console.log("Received callback from Nylas");
-
-  const url = new URL(req.url as string);
+export async function GET(req: NextRequest) {
+  const url = new URL(req.url);
   const code = url.searchParams.get("code");
 
   if (!code) {

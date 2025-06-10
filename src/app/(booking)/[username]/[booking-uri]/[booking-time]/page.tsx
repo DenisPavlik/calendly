@@ -54,7 +54,7 @@ export default function BookingFormPage(props: PageProps) {
         <div className="text-center text-blue-600">
           <h1 className="text-xl font-semibold ">Congratulations! 😃</h1>
           <h2 className="text-lg font-semibold">
-            You've successfully booked a meeting with {username}
+            You&apos;ve successfully booked a meeting with {username}
           </h2>
           <p className="text-gray-400 text-sm mt-2">
             Check Google Meet for your upcoming meeting
