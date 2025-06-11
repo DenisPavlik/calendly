@@ -25,7 +25,6 @@ export async function GET(req: NextRequest) {
 
   await connectToDB();
   
-  
   const profileDoc = await ProfileModel.findOne({ email });
   if (profileDoc) {
     profileDoc.grantId = grantId;
@@ -35,10 +34,7 @@ export async function GET(req: NextRequest) {
   }
 
   // await session().set("grandId", grantId);
-  console.log("✅ EMAIL to set:", email);
+  const res = Response.redirect(new URL("/", req.url), 302)
   await session().set("email", email);
-  console.log("✅ Session set successfully");
-
-
-  return Response.redirect(new URL("/", req.url), 302);
+  return res;
 }
