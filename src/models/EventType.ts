@@ -1,4 +1,4 @@
-import { EventType, FromTo, WeekdayName } from "@/libs/types";
+import { EventType, FromTo, WeekdayName } from "@/types/types";
 import mongoose, { model, Schema } from "mongoose";
 import { ST } from "next/dist/shared/lib/utils";
 

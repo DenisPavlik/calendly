@@ -1,7 +1,8 @@
 "use server";
 
 import { connectToDB } from "@/libs/connectToDB";
-import { session } from "@/libs/session";
+import { getSessionEmailFromCookies } from "@/libs/getSessionEmail";
+// import { session } from "@/libs/session";
 import { BookingModel } from "@/models/Booking";
 import { EventTypeModel } from "@/models/EventType";
 import { format } from "date-fns";
@@ -9,7 +10,7 @@ import { CalendarDays, Clock, NotebookText, UserCircle } from "lucide-react";
 
 export default async function BookedEventsPage() {
   await connectToDB();
-  const email = await session().get("email");
+  const email = await getSessionEmailFromCookies();
   const etDocs = await EventTypeModel.find({ email });
   const bookedEnvents = await BookingModel.find(
     {

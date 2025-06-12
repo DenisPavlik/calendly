@@ -2,7 +2,8 @@
 
 import DashboardNav from "@/app/components/DashboardNav";
 import { connectToDB } from "@/libs/connectToDB";
-import { session } from "@/libs/session";
+import { getSessionEmailFromCookies } from "@/libs/getSessionEmail";
+// import { session } from "@/libs/session";
 import { EventTypeModel } from "@/models/EventType";
 import { ProfileModel } from "@/models/Profile";
 import clsx from "clsx";
@@ -11,7 +12,7 @@ import Link from "next/link";
 
 export default async function EventTypesPage() {
   await connectToDB();
-  const email = await session().get("email");
+  const email = await getSessionEmailFromCookies();
   const eventTypes = await EventTypeModel.find({ email });
   const profileDoc = await ProfileModel.findOne({ email });
   

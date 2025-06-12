@@ -1,6 +1,6 @@
 import { connectToDB } from "@/libs/connectToDB";
 import { nylas } from "@/libs/nylas";
-import { Profile } from "@/libs/types";
+import { Profile } from "@/types/types";
 import { ProfileModel } from "@/models/Profile";
 import { NextRequest } from "next/server";
 import { TimeSlot } from "nylas";

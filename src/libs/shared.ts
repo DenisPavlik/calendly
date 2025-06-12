@@ -1,4 +1,4 @@
-import { WeekdayName } from "./types";
+import { WeekdayName } from "../types/types";
 
 export const WeekdaysNames: WeekdayName[] = [
   "monday",

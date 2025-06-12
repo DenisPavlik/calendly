@@ -1,6 +1,6 @@
 "use client";
 import { shortWeekdays } from "@/libs/shared";
-import { BookingTimes, WeekdayName } from "@/libs/types";
+import { BookingTimes, WeekdayName } from "@/types/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import {

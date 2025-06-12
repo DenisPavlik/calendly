@@ -1,6 +1,6 @@
 "use client";
 import TimeSelect from "@/app/components/TimeSelect";
-import { BookingTimes, EventType, WeekdayName } from "@/libs/types";
+import { BookingTimes, EventType, WeekdayName } from "@/types/types";
 import axios from "axios";
 import clsx from "clsx";
 import { Save } from "lucide-react";

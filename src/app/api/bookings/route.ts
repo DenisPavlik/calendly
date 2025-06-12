@@ -1,6 +1,6 @@
 import { connectToDB } from "@/libs/connectToDB";
 import { nylas } from "@/libs/nylas";
-import { EventType } from "@/libs/types";
+import { EventType } from "@/types/types";
 import { BookingModel } from "@/models/Booking";
 import { EventTypeModel } from "@/models/EventType";
 import { ProfileModel } from "@/models/Profile";

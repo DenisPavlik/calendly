@@ -1,5 +1,6 @@
 import { connectToDB } from "@/libs/connectToDB";
-import { session } from "@/libs/session";
+import { getSessionEmailFromRequest } from "@/libs/getSessionEmail";
+// import { session } from "@/libs/session";
 import { EventTypeModel } from "@/models/EventType";
 import { NextRequest } from "next/server";
 
@@ -10,7 +11,7 @@ function uriFromTitle(title: string) : string {
 export async function POST(req: NextRequest) {
   try {
     await connectToDB();
-    const email = await session().get("email");
+    const email = await getSessionEmailFromRequest(req);
     if (!email) {
       return new Response("Unauthorized", { status: 401 });
     }
@@ -29,7 +30,7 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     await connectToDB();
-    const email = await session().get("email");
+    const email = await getSessionEmailFromRequest(req);
     if (!email) {
       return new Response("Unauthorized", { status: 401 });
     }
@@ -55,7 +56,7 @@ export async function PUT(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     await connectToDB();
-    const email = await session().get("email");
+    const email = await getSessionEmailFromRequest(req);
     if (!email) {
       return new Response("Unauthorized", { status: 401 });
     }

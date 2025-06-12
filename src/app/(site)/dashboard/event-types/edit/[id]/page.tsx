@@ -1,6 +1,7 @@
 import EventTypeForm from "@/app/components/EventTypeForm";
 import { connectToDB } from "@/libs/connectToDB";
-import { session } from "@/libs/session";
+import { getSessionEmailFromCookies } from "@/libs/getSessionEmail";
+// import { session } from "@/libs/session";
 import { EventTypeModel } from "@/models/EventType";
 import { ProfileModel } from "@/models/Profile";
 
@@ -12,7 +13,7 @@ type PageProps = {
 
 export default async function EditEventTypePage({ params }: PageProps) {
   await connectToDB();
-  const email = await session().get("email");
+  const email = await getSessionEmailFromCookies();
   const eventtypeDoc = await EventTypeModel.findById(params.id);
   const profileDoc = await ProfileModel.findOne({ email });
   if (eventtypeDoc) {

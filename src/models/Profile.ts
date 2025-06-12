@@ -1,4 +1,4 @@
-import { Profile } from "@/libs/types";
+import { Profile } from "@/types/types";
 import { model, models, Schema } from "mongoose";
 
 const ProfileSchema = new Schema<Profile>({

@@ -1,4 +1,4 @@
-import { Booking } from "@/libs/types";
+import { Booking } from "@/types/types";
 import { model, models, Schema } from "mongoose";
 
 const BookingSchema = new Schema<Booking>({

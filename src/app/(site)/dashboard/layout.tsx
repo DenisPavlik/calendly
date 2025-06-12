@@ -1,5 +1,6 @@
 import DashboardNav from "@/app/components/DashboardNav";
-import { session } from "@/libs/session";
+import { getSessionEmailFromCookies } from "@/libs/getSessionEmail";
+// import { session } from "@/libs/session";
 import { ProfileModel } from "@/models/Profile";
 import { ReactNode } from "react";
 
@@ -8,7 +9,7 @@ export default async function DashboardLayout({
 }: {
   children: ReactNode;
 }) {
-  const email = await session().get("email");
+  const email = await getSessionEmailFromCookies()
   const profileDoc = await ProfileModel.findOne({ email });
   if (!email) {
     return (

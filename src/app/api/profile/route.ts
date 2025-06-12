@@ -1,12 +1,12 @@
 import { connectToDB } from "@/libs/connectToDB";
-import { session } from "@/libs/session";
+import { getSessionEmailFromRequest } from "@/libs/getSessionEmail";
 import { ProfileModel } from "@/models/Profile";
 import { NextRequest } from "next/server";
 
 export async function PUT(req: NextRequest) {
   try {
     await connectToDB();
-    const email = await session().get('email');
+    const email = await getSessionEmailFromRequest(req);
     if (!email) {
       return new Response("Unauthorized", { status: 401 });
     }
