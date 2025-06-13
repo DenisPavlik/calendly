@@ -51,8 +51,8 @@ export async function GET(req: NextRequest) {
 
   const response = await nylas.auth.exchangeCodeForToken({
     clientSecret: nylasConfig.apiKey,
-    clientId: nylasConfig.clientId as string, // Note this is *different* from your API key
-    redirectUri: nylasConfig.callbackUri, // URI you registered with Nylas in the previous step
+    clientId: nylasConfig.clientId as string,
+    redirectUri: nylasConfig.callbackUri,
     code,
   });
   const { grantId, email } = response;
@@ -72,6 +72,6 @@ export async function GET(req: NextRequest) {
   await session.save();
 
   return NextResponse.redirect(new URL("/", req.url), {
-    headers: res.headers
-  })
+    headers: res.headers,
+  });
 }
