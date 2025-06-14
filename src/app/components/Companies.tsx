@@ -48,6 +48,12 @@ export default function Companies(props: CompaniesProps) {
           width={200}
           height={200}
         />
+        <Image
+          src="https://images.ctfassets.net/k0lk9kiuza3o/56cjEhKMIFlRPdVUSQqMYD/a33ef976df35d4e240246d5e08bcb610/crocs-customer-logo.svg"
+          alt="crocs"
+          width={200}
+          height={200}
+        />
       </div>
     </section>
   );
