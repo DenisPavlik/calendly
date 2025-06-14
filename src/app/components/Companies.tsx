@@ -8,7 +8,9 @@ type CompaniesProps = {
 
 export default function Companies(props: CompaniesProps) {
   return (
-    <section className={clsx("absolute overflow-hidden", props.left, props.top)}>
+    <section
+      className={clsx("absolute overflow-hidden", props.left, props.top)}
+    >
       <div className="flex text-center gap-8 *:h-8 mt-6">
         <Image
           src="https://images.ctfassets.net/k0lk9kiuza3o/Y595RQBDR1fW5blQZfd9l/b9f3e2557c598b1ea51bb4e55f507833/lyft-customer-logo.svg"

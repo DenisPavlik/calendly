@@ -17,7 +17,7 @@ export default function FeaturesPage() {
         <div className="flex items-center gap-2">
           <a
             href={""}
-            className="btn border border-blue-500 bg-blue-500 text-white !rounded-lg"
+            className="btn border border-blue-500 bg-blue-500 text-white !rounded-lg duration-300 hover:bg-blue-700/90"
           >
             Sign up for free
           </a>
@@ -25,19 +25,30 @@ export default function FeaturesPage() {
             About us
           </Link>
         </div>
-        <Companies />
+        <Companies left="left-0" top="top-[400px]" />
       </div>
-      <div>
-        <h1>For everyone who schedules meetings</h1>
-        <p>
+      <div className="mt-32">
+        <h1 className="text-6xl text-center font-bold text-cyan-900">
+          For everyone who schedules meetings
+        </h1>
+        <p className="text-gray-500 font-light text-center my-8">
           Meet faster to close deals, support customers, and hire top talent –
           bring the right people together, automate tasks like sending
           reminders, and drive business growth with integrations, analytics, and
           security features.
         </p>
-        <Link href={"/pricing"}>
-          View plan options <ArrowRight />
-        </Link>
+        <div className="flex items-center justify-center">
+          <Link
+            href={"/pricing"}
+            className="flex items-center gap-2 text-gray-400 hover:text-gray-800 duration-300 group"
+          >
+            View plan options{" "}
+            <ArrowRight
+              className="transform transition-transform duration-300 group-hover:translate-x-2"
+              size={20}
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );
