@@ -1,4 +1,32 @@
-import Link from "next/link";
+import Card from "@/app/components/Card";
+
+const freePlanArr = [
+  "1 event type",
+  "Connect 1 calendar",
+  "Customize availability",
+  "Add video conferencing",
+  "Customize your booking page",
+  "Mobile apps",
+  "Browser extensions",
+];
+
+const standartPlanArr = [
+  "Unlimited event types",
+  "Connect multiple calendars",
+  "Connect Hubspot, Mailchimp",
+  "Connect Stripe, Paypal",
+  "Connect with Zapier, webhooks",
+  "Atomate reminders",
+  "24/7 chat support",
+];
+
+const teamsPlanArr = [
+  'Send meetings to Salesforce',
+  'Share Round-robin meetings',
+  'Qualify & route leads',
+  'Connect Hubspot, Marketo, Pardot',
+  'Advanced admin features',
+]
 
 export default function PricingPage() {
   return (
@@ -6,34 +34,30 @@ export default function PricingPage() {
       <h1 className="my-8 text-5xl font-bold text-cyan-900 text-center">
         Pick the perfect plan for you
       </h1>
-      <div className="flex gap-4">
-        <div className="bg-gray-100 p-6 rounded-xl">
-          <div className="flex flex-col gap-1 text-cyan-900 mb-10">
-            <h2 className="font-bold  text-xl">Free</h2>
-            <p className="text-sm">For personal use</p>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-cyan-900 font-bold text-2xl">
-              Always free
-            </span>
-            <div className="text-center w-full">
-              <Link href={""} className="btn bg-blue-500 text-white !rounded-md">
-              Get started
-            </Link>
-            </div>
-          </div>
-          <div>
-            <p>Free features:</p>
-            <span>Scheduling</span>
-            <ul>
-              <li className="">1 event type</li>
-              <li>Connect 1 calendar</li>
-              <li>Customize availability</li>
-              <li>Add video conferencing</li>
-              <li>Customize your booking page</li>
-            </ul>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Card
+          title="Free"
+          subtitle="For personal use"
+          price="Free"
+          addons="Free features"
+          planArr={freePlanArr}
+        />
+        <Card
+          title="Standart"
+          subtitle="For professionals"
+          price="$10"
+          addons="Free features, plus"
+          planArr={standartPlanArr}
+        />
+        <Card
+          title="Teams"
+          subtitle="For growing businesses"
+          price="$16"
+          addons="Standard features, plus"
+          planArr={teamsPlanArr}
+          addtitionalTitle="Sequrity add-on"
+          additionalArr={['Single Sign-On']}
+        />
       </div>
     </div>
   );

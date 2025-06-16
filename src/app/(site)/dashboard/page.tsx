@@ -1,5 +1,6 @@
 "use server";
 
+import Preloader from "@/app/components/Preloader";
 import ProfileForm from "@/app/components/ProfileForm";
 import { getUsernameByEmail } from "@/libs/db-utils";
 import { getSessionEmailFromCookies } from "@/libs/getSessionEmail";
@@ -15,7 +16,8 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      <ProfileForm un={username} />
+      {!username && <Preloader />}
+      {username && <ProfileForm un={username} />}
     </div>
   );
 }
