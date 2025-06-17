@@ -9,10 +9,10 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: "2rem",
       screens: {
-        xs: '780px'
-      }
+        xs: "780px",
+      },
     },
     extend: {
       backgroundImage: {
@@ -20,6 +20,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      keyframes: {
+        scroll: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        scroll: 'scroll 30s linear infinite'
+      }
     },
   },
   plugins: [],
