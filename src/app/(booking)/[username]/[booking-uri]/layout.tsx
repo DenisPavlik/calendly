@@ -36,7 +36,7 @@ export default async function BookingBoxLayout(props: LayoutProps) {
         <div className="w-full text-center">
           <div className="inline-flex flex-col sm:flex-row
           shadow-md rounded-lg overflow-hidden mx-2 md:mx-auto">
-            <div className="bg-sky-100/50 w-100 flex flex-col gap-4 p-4">
+            <div className="bg-sky-100/50 w-96 flex flex-col gap-4 p-4">
               <h1 className="text-2xl text-left border-b border-black/20 pb-2 font-semibold">
                 {etDoc.title}
               </h1>
