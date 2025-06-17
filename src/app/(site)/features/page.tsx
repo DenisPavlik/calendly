@@ -40,7 +40,7 @@ export default function FeaturesPage() {
           reminders, and drive business growth with integrations, analytics, and
           security features.
         </p>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center pb-6">
           <Link
             href={"/pricing"}
             className="flex items-center gap-2 text-gray-400 hover:text-gray-800 duration-300 group"

@@ -21,7 +21,7 @@ export default function AboutPage() {
         </Link>
 
         <p className="font-thin mt-10">The trusted scheduling solution for everyone, from small businesses to Fortune 100 companies</p>
-        <Companies left="left-0" top="top-[550px]" />
+        <Companies left="left-0" top="top-[500px] md:top-[550px]" />
       </div>
     </div>
   );

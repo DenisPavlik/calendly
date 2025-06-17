@@ -53,7 +53,7 @@ const logos = [
 export default function Companies(props: CompaniesProps) {
   return (
     <section
-      className={clsx("absolute overflow-hidden py-6", props.left, props.top)}
+      className={clsx("absolute overflow-hidden w-screen py-6", props.left, props.top)}
     >
       <Marquee speed={40} pauseOnHover gradient={false}>
         {logos.map((logo, index) => (

@@ -8,7 +8,7 @@ export default function DashboardNav({ username }: { username?: string }) {
   const ifEventTypesPage = pathName.includes("event-types");
   const ifBookedEventsPage = pathName.includes("booked-events");
   return (
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-2 justify-center text-nowrap">
       <Link
         href={"/dashboard"}
         className={clsx(
