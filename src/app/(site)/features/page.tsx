@@ -6,7 +6,7 @@ export default function FeaturesPage() {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col items-center mt-4">
-        <h1 className="text-6xl font-bold text-cyan-900 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold text-cyan-900 text-center">
           Book meetings that work for you
         </h1>
         <p className="text-gray-500 font-light text-center my-8">
@@ -15,20 +15,23 @@ export default function FeaturesPage() {
           need, and stay secure.
         </p>
         <div className="flex items-center gap-2">
-          <a
-            href={""}
+          <Link
+            href={"/dashboard"}
             className="btn border border-blue-500 bg-blue-500 text-white !rounded-lg duration-300 hover:bg-blue-700/90"
           >
             Sign up for free
-          </a>
-          <Link href={""} className="btn border border-gray-700 !rounded-lg">
+          </Link>
+          <Link
+            href={"/about"}
+            className="btn border border-gray-700 !rounded-lg"
+          >
             About us
           </Link>
         </div>
-        <Companies left="left-0" top="top-[400px]" />
+        <Companies left="left-0" top="top-[400px] sm:top-[350px] md:top-[400px]" />
       </div>
       <div className="mt-32">
-        <h1 className="text-6xl text-center font-bold text-cyan-900">
+        <h1 className="text-4xl md:text-6xl text-center font-bold text-cyan-900">
           For everyone who schedules meetings
         </h1>
         <p className="text-gray-500 font-light text-center my-8">

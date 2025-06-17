@@ -8,7 +8,7 @@ export default function AboutPage() {
         <span className="text-sm text-blue-600 bg-blue-100 py-1 px-2 rounded-full">
           About Calendly
         </span>
-        <h1 className="text-6xl font-bold text-cyan-900 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold text-cyan-900 text-center">
           Simplifying scheduling for 20+ million
         </h1>
         <p className="font-thin text-gray-600">
@@ -16,7 +16,7 @@ export default function AboutPage() {
           helps you close deals, hire top talent, build strong relationships,
           and grow your business faster.
         </p>
-        <Link href={"/"} className="btn bg-blue-500 text-white !rounded-md">
+        <Link href={"/dashboard"} className="btn bg-blue-500 text-white !rounded-md">
           Sing up for free
         </Link>
 

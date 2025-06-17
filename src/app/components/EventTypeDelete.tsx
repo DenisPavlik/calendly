@@ -17,7 +17,7 @@ export default function EventTypeDelete({id}: {id:string | undefined}) {
     <div>
       <button
         type="button"
-        className="btn bg-red-600 text-white"
+        className="btn bg-red-600 text-white my-4"
         onClick={() => setShowConfirmation(true)}
       >
         <Trash2 />

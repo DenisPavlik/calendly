@@ -21,7 +21,7 @@ export default async function Header({email}: {email?: string}) {
         </nav>
       </div>
       {email && (
-        <nav className="flex items-center gap-4">
+        <nav className="flex items-center text-sm sm:text-base gap-2 sm:gap-4">
           <Link
             href={"/dashboard"}
             className="btn bg-blue-600 text-white"

@@ -63,7 +63,7 @@ export default function Companies(props: CompaniesProps) {
             alt={logo.alt}
             width={120}
             height={60}
-            className="mx-6 h-8 w-auto"
+            className="mx-10 h-8 w-auto"
           />
         ))}
       </Marquee>

@@ -85,7 +85,7 @@ export default function EventTypeForm({
           }`}
         />
       )}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label>
             <span>title</span>
@@ -168,9 +168,10 @@ export default function EventTypeForm({
           </div>
         </div>
       </div>
-      <div className="flex justify-center gap-2">
+      <div className="flex items-center justify-center gap-2 my-4 md:my-0">
         {doc && <EventTypeDelete id={doc._id} />}
-        <button type="submit" className="btn bg-blue-600 text-white !px-6">
+        <button type="submit" className="btn bg-blue-600 h-10 text-white
+        !px-6">
           <Save />
           Save
         </button>

@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { Play } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -16,8 +17,10 @@ export default function Hero() {
       <h1 className="text-5xl font-bold mb-6 leading-tight">
         Scheduling{" "}
         <span
-          className={
-            "text-blue-600 cool-underline" + (showLine ? " show-underline" : "")
+          className={clsx(
+            "text-blue-600 cool-underline",
+            showLine ? "show-underline" : ""
+          )
           }
         >
           made simple

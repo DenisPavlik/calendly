@@ -16,8 +16,7 @@ export default async function DashboardPage() {
 
   return (
     <div>
-      {!username && <Preloader />}
-      {username && <ProfileForm un={username} />}
+      <ProfileForm un={username} />
     </div>
   );
 }

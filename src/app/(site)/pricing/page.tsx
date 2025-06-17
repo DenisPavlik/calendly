@@ -34,7 +34,7 @@ export default function PricingPage() {
       <h1 className="my-8 text-5xl font-bold text-cyan-900 text-center">
         Pick the perfect plan for you
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-8">
         <Card
           title="Free"
           subtitle="For personal use"
